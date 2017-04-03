@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
-// иммитация сервера
+// РёРјРјРёС‚Р°С†РёСЏ СЃРµСЂРІРµСЂР°
 public class CinemaData {
-	private String reservationsFileName = "RESERVATIONS.TXT"; // бронирование
+	private String reservationsFileName = "RESERVATIONS.TXT"; // Р±СЂРѕРЅРёСЂРѕРІР°РЅРёРµ
 	// id/<id>/id_cinema/<id_cinema>/row/<row>/place/<place>/
-	private String timeTableFileName = "TIMETABLE.TXT"; // расписание
+	private String timeTableFileName = "TIMETABLE.TXT"; // СЂР°СЃРїРёСЃР°РЅРёРµ
 	//id/<id>/cinema/<name>/date/<date>/start_time/<start_time>/end_time/<end_time>
 
 	private StringBuilder reservationsData = null;
@@ -19,10 +19,10 @@ public class CinemaData {
 
 	public void printInfo(){
 		System.out.println("INFO");
-		System.out.println("просмотреть расписание: GET /TIMETABLE/"
-				+ "\nзабронировать одно или несколько мест на сеансе: PUT /RESERVATIONS/"
-				+ "\nотменить бронь: DELETE /RESERVATIONS/?/"
-				+ "\nполучить информацию по номеру своего заказа: GET /RESERVATIONS/?/\n");
+		System.out.println("РїСЂРѕСЃРјРѕС‚СЂРµС‚СЊ СЂР°СЃРїРёСЃР°РЅРёРµ: GET /TIMETABLE/"
+				+ "\nР·Р°Р±СЂРѕРЅРёСЂРѕРІР°С‚СЊ РѕРґРЅРѕ РёР»Рё РЅРµСЃРєРѕР»СЊРєРѕ РјРµСЃС‚ РЅР° СЃРµР°РЅСЃРµ: PUT /RESERVATIONS/"
+				+ "\nРѕС‚РјРµРЅРёС‚СЊ Р±СЂРѕРЅСЊ: DELETE /RESERVATIONS/?/"
+				+ "\nРїРѕР»СѓС‡РёС‚СЊ РёРЅС„РѕСЂРјР°С†РёСЋ РїРѕ РЅРѕРјРµСЂСѓ СЃРІРѕРµРіРѕ Р·Р°РєР°Р·Р°: GET /RESERVATIONS/?/\n");
 	}
 
 	public CinemaData(){
@@ -44,7 +44,7 @@ public class CinemaData {
 				lastIdReservations = Integer.valueOf(s1[1]);
 			}
 		} catch (IOException e) {
-			System.out.println("Ошибка прочтения данных бронирования");
+			System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ РґР°РЅРЅС‹С… Р±СЂРѕРЅРёСЂРѕРІР°РЅРёСЏ");
 			return;
 		}
 		try {
@@ -62,7 +62,7 @@ public class CinemaData {
 				lastIdTimeTable = Integer.valueOf(s1[1]);
 			}
 		} catch (IOException e) {
-			System.out.println("Ошибка прочтения расписания сеансов");
+			System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ СЂР°СЃРїРёСЃР°РЅРёСЏ СЃРµР°РЅСЃРѕРІ");
 			return;
 		}
 	}
@@ -72,62 +72,62 @@ public class CinemaData {
 			out.write(String.valueOf(reservationsData));
 			out.close();
 		} catch (IOException e) {
-			System.out.println("Ошибка сохранения данных бронирования");
+			System.out.println("РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ РґР°РЅРЅС‹С… Р±СЂРѕРЅРёСЂРѕРІР°РЅРёСЏ");
 			return;
 		}
-		// Расписание не редактируется, поэтому перезапись не потребуется
+		// Р Р°СЃРїРёСЃР°РЅРёРµ РЅРµ СЂРµРґР°РєС‚РёСЂСѓРµС‚СЃСЏ, РїРѕСЌС‚РѕРјСѓ РїРµСЂРµР·Р°РїРёСЃСЊ РЅРµ РїРѕС‚СЂРµР±СѓРµС‚СЃСЏ
 	}
 	public void getTimeTable(){
 		int c1 = 0, c2 = 0;
 		while( (c2 = timeTableData.substring(c1).indexOf('\n')) != -1){
 			String[] str = timeTableData.substring(c1, c2+c1).split("/");
 			System.out.println(str[1] + ". " + str[3] + ".");
-			System.out.println("   Дата сеанса: " + str[5]);
-			System.out.println("   Начало: " + str[7] + "   Конец: " + str[9]);
+			System.out.println("   Р”Р°С‚Р° СЃРµР°РЅСЃР°: " + str[5]);
+			System.out.println("   РќР°С‡Р°Р»Рѕ: " + str[7] + "   РљРѕРЅРµС†: " + str[9]);
 			c1 += c2+1;
 		}
 	}
 	public void putReservation(){
-		System.out.print("Желаете ли забронировать несколько мест (да/нет):");
+		System.out.print("Р–РµР»Р°РµС‚Рµ Р»Рё Р·Р°Р±СЂРѕРЅРёСЂРѕРІР°С‚СЊ РЅРµСЃРєРѕР»СЊРєРѕ РјРµСЃС‚ (РґР°/РЅРµС‚):");
 		String inputData = new String();
 		int numberPlaces = 1;
 		BufferedReader reader = new BufferedReader( new InputStreamReader(System.in));
-		while(!inputData.equals("да") && !inputData.equals("нет") ){
+		while(!inputData.equals("РґР°") && !inputData.equals("РЅРµС‚") ){
 			try {
 				inputData = reader.readLine();
 			} catch (IOException e) {
-				System.out.println("Ошибка прочтения");
+				System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
 			}
-			if(!inputData.equals("да") && !inputData.equals("нет"))
-				System.out.print("Введите повторно ответ: ");
-			if(inputData.equals("да")){
-				System.out.print("Сколько желаете забронировать мест:");
+			if(!inputData.equals("РґР°") && !inputData.equals("РЅРµС‚"))
+				System.out.print("Р’РІРµРґРёС‚Рµ РїРѕРІС‚РѕСЂРЅРѕ РѕС‚РІРµС‚: ");
+			if(inputData.equals("РґР°")){
+				System.out.print("РЎРєРѕР»СЊРєРѕ Р¶РµР»Р°РµС‚Рµ Р·Р°Р±СЂРѕРЅРёСЂРѕРІР°С‚СЊ РјРµСЃС‚:");
 				while(numberPlaces == 1){
 					try {
 						numberPlaces = Integer.valueOf(reader.readLine());
 					} catch (NumberFormatException e) {
-						System.out.print("Введите число: ");
+						System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 					} catch (IOException e) {
-						System.out.println("Ошибка прочтения");
-						System.out.print("Введите число: ");
+						System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
+						System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 					}
 				}
 			}
 		}
 		lastIdReservations++;
 		int idCinema = 0, row, place;
-		System.out.print("Выберите кино: ");
+		System.out.print("Р’С‹Р±РµСЂРёС‚Рµ РєРёРЅРѕ: ");
 		while(idCinema == 0){
 			try {
 				idCinema = Integer.valueOf(reader.readLine());
 			} catch (NumberFormatException e) {
-				System.out.print("Введите число: ");
+				System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 			} catch (IOException e) {
-				System.out.println("Ошибка прочтения");
-				System.out.print("Введите число: ");
+				System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
+				System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 			}
 			if(idCinema > lastIdTimeTable){
-				System.out.print("Введите число из имеющихся id киносеансов: ");
+				System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РёР· РёРјРµСЋС‰РёС…СЃСЏ id РєРёРЅРѕСЃРµР°РЅСЃРѕРІ: ");
 				idCinema = 0;
 			}
 		}
@@ -135,33 +135,33 @@ public class CinemaData {
 		{
 			row = 0;
 			place = 0;
-			System.out.print("Выберите ряд: ");
+			System.out.print("Р’С‹Р±РµСЂРёС‚Рµ СЂСЏРґ: ");
 			while(row == 0){
 				try {
 					row = Integer.valueOf(reader.readLine());
 				} catch (NumberFormatException e) {
-					System.out.print("Введите число: ");
+					System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 				} catch (IOException e) {
-					System.out.println("Ошибка прочтения");
-					System.out.print("Введите число: ");
+					System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
+					System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 				}
 			}
-			System.out.print("Выберите место: ");
+			System.out.print("Р’С‹Р±РµСЂРёС‚Рµ РјРµСЃС‚Рѕ: ");
 			while(place == 0){
 				try {
 					place = Integer.valueOf(reader.readLine());
 				} catch (NumberFormatException e) {
-					System.out.print("Введите число: ");
+					System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 				} catch (IOException e) {
-					System.out.println("Ошибка прочтения");
-					System.out.print("Введите число: ");
+					System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
+					System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 				}
 			}
-			// добавим запись
+			// РґРѕР±Р°РІРёРј Р·Р°РїРёСЃСЊ
 			String puttedString = "id/" + lastIdReservations + "/id_cinema/" + idCinema + 
 					"/row/" + row + "/place/" + place + "/\n";
 			if(reservationsData.indexOf(puttedString) != -1){
-				System.out.println("Данное место забронировано");
+				System.out.println("Р”Р°РЅРЅРѕРµ РјРµСЃС‚Рѕ Р·Р°Р±СЂРѕРЅРёСЂРѕРІР°РЅРѕ");
 				i--;
 			}
 			else
@@ -171,16 +171,16 @@ public class CinemaData {
 	}
 	public void getReservation(){
 		BufferedReader reader = new BufferedReader( new InputStreamReader(System.in));
-		System.out.print("Введите номер заказа: ");
+		System.out.print("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ Р·Р°РєР°Р·Р°: ");
 		int num = 0;
 		while(num == 0){
 			try {
 				num = Integer.valueOf(reader.readLine());
 			} catch (NumberFormatException e) {
-				System.out.print("Введите число: ");
+				System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 			} catch (IOException e) {
-				System.out.println("Ошибка прочтения");
-				System.out.print("Введите число: ");
+				System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
+				System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 			}
 		}
 		String findString = "id/" + num;
@@ -192,36 +192,36 @@ public class CinemaData {
 			c2 = reservationsData.substring(c1).indexOf('\n');
 			String[] str = reservationsData.substring(c1, c2+c1).split("/");
 			if(numberPlaces == 0){
-				//System.out.println("Номер заказа: " + str[1]);
+				//System.out.println("РќРѕРјРµСЂ Р·Р°РєР°Р·Р°: " + str[1]);
 				//System.out.println("ID Seesion cinema: " + str[3]);
 				int b1 = timeTableData.indexOf("id/" + str[3]);
 				int b2 = timeTableData.substring(b1).indexOf('\n');
 				String[] strCinema = timeTableData.substring(b1, b2+b1).split("/");
 				System.out.println("   "+strCinema[3]);
-				System.out.println("   Дата сеанса: " + strCinema[5]);
-				System.out.println("   Начало: " + strCinema[7] + "   Конец: " + strCinema[9]);
+				System.out.println("   Р”Р°С‚Р° СЃРµР°РЅСЃР°: " + strCinema[5]);
+				System.out.println("   РќР°С‡Р°Р»Рѕ: " + strCinema[7] + "   РљРѕРЅРµС†: " + strCinema[9]);
 			}
-			System.out.println("   Ряд: " + str[5] + "   Место: " + str[7]);
+			System.out.println("   Р СЏРґ: " + str[5] + "   РњРµСЃС‚Рѕ: " + str[7]);
 			c1 += c2+1;
 			numberPlaces++;
 		}
 		if(numberPlaces == 0){
-			System.out.println("Заказа с таким номером нет");
+			System.out.println("Р—Р°РєР°Р·Р° СЃ С‚Р°РєРёРј РЅРѕРјРµСЂРѕРј РЅРµС‚");
 			return;
 		}
 	}
 	public void deleteReservation(){
 		BufferedReader reader = new BufferedReader( new InputStreamReader(System.in));
-		System.out.print("Введите номер заказа: ");
+		System.out.print("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ Р·Р°РєР°Р·Р°: ");
 		int num = 0;
 		while(num == 0){
 			try {
 				num = Integer.valueOf(reader.readLine());
 			} catch (NumberFormatException e) {
-				System.out.print("Введите число: ");
+				System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 			} catch (IOException e) {
-				System.out.println("Ошибка прочтения");
-				System.out.print("Введите число: ");
+				System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
+				System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 			}
 		}
 		String findString = "id/" + num;
@@ -235,48 +235,48 @@ public class CinemaData {
 			numberPlaces++;
 		}
 		if(numberPlaces == 0){
-			System.out.println("Заказа с таким номером нет");
+			System.out.println("Р—Р°РєР°Р·Р° СЃ С‚Р°РєРёРј РЅРѕРјРµСЂРѕРј РЅРµС‚");
 			return;
 		}
 		if(numberPlaces > 1){
-			System.out.println("На данный заказ зарегистрировано несколько мест");
-			System.out.print("Желаете ли отменить только одно место или весь заказ (да/нет):");
+			System.out.println("РќР° РґР°РЅРЅС‹Р№ Р·Р°РєР°Р· Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРѕ РЅРµСЃРєРѕР»СЊРєРѕ РјРµСЃС‚");
+			System.out.print("Р–РµР»Р°РµС‚Рµ Р»Рё РѕС‚РјРµРЅРёС‚СЊ С‚РѕР»СЊРєРѕ РѕРґРЅРѕ РјРµСЃС‚Рѕ РёР»Рё РІРµСЃСЊ Р·Р°РєР°Р· (РґР°/РЅРµС‚):");
 			String inputVariant = new String();
-			while(!inputVariant.equals("да") && !inputVariant.equals("нет") ){
+			while(!inputVariant.equals("РґР°") && !inputVariant.equals("РЅРµС‚") ){
 				try {
 					inputVariant = reader.readLine();
 				} catch (IOException e) {
-					System.out.println("Ошибка прочтения");
+					System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
 				}
-				if(!inputVariant.equals("да") && !inputVariant.equals("нет"))
-					System.out.print("Введите повторно ответ: ");
+				if(!inputVariant.equals("РґР°") && !inputVariant.equals("РЅРµС‚"))
+					System.out.print("Р’РІРµРґРёС‚Рµ РїРѕРІС‚РѕСЂРЅРѕ РѕС‚РІРµС‚: ");
 			}
-			if(inputVariant.equals("да")){
+			if(inputVariant.equals("РґР°")){
 				int row = 0;
 				int place = 0;
-				System.out.print("Выберите ряд: ");
+				System.out.print("Р’С‹Р±РµСЂРёС‚Рµ СЂСЏРґ: ");
 				while(row == 0){
 					try {
 						row = Integer.valueOf(reader.readLine());
 					} catch (NumberFormatException e) {
-						System.out.print("Введите число: ");
+						System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 					} catch (IOException e) {
-						System.out.println("Ошибка прочтения");
-						System.out.print("Введите число: ");
+						System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
+						System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 					}
 				}
-				System.out.print("Выберите место: ");
+				System.out.print("Р’С‹Р±РµСЂРёС‚Рµ РјРµСЃС‚Рѕ: ");
 				while(place == 0){
 					try {
 						place = Integer.valueOf(reader.readLine());
 					} catch (NumberFormatException e) {
-						System.out.print("Введите число: ");
+						System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 					} catch (IOException e) {
-						System.out.println("Ошибка прочтения");
-						System.out.print("Введите число: ");
+						System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
+						System.out.print("Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ: ");
 					}
 				}
-				// найдем запись
+				// РЅР°Р№РґРµРј Р·Р°РїРёСЃСЊ
 				String findedString = "/row/" + row + "/place/" + place + "/";
 				c = 0;
 				c1 = 0;
@@ -304,9 +304,9 @@ public class CinemaData {
 			c2 = reservationsData.substring(c1).indexOf('\n');
 			String str = reservationsData.substring(c1, c2+c1);
 			String[] str1 = str.split("/");
-			System.out.println("Номер заказа: " + str1[1]);
+			System.out.println("РќРѕРјРµСЂ Р·Р°РєР°Р·Р°: " + str1[1]);
 			System.out.println("ID Seesion cinema: " + str1[3]);
-			System.out.println("   Ряд: " + str1[5] + "   Место: " + str1[7]);
+			System.out.println("   Р СЏРґ: " + str1[5] + "   РњРµСЃС‚Рѕ: " + str1[7]);
 			reservationsData.delete(c1, c1+c2+1);
 			//refresh();
 		}
