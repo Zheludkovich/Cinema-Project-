@@ -1,0 +1,2 @@
+id/1/cinema/Cinema1/date/01.01.01/start_time/15.00/end_time/18.00
+id/2/cinema/Cinema2/date/01.01.01/start_time/18.00/end_time/21.00

@@ -1,0 +1,4 @@
+id/1/id_cinema/1/row/5/place/20/
+id/2/id_cinema/2/row/3/place/4/
+id/2/id_cinema/2/row/3/place/5/
+id/3/id_cinema/1/row/2/place/2/
