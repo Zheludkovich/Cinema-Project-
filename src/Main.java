@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-	// основной класс
+	// РѕСЃРЅРѕРІРЅРѕР№ РєР»Р°СЃСЃ
 	public static void main(String[] args) {
 		CinemaData cinema = new CinemaData();
 		
@@ -16,7 +16,7 @@ public class Main {
 			try {
 				inputString = reader.readLine();
 			} catch (IOException e) {
-				System.out.println("Ошибка прочтения");
+				System.out.println("РћС€РёР±РєР° РїСЂРѕС‡С‚РµРЅРёСЏ");
 				continue;
 			}
 			if(inputString.equals("EXIT")){
@@ -38,7 +38,7 @@ public class Main {
 				cinema.getReservation();
 				continue;
 			}
-			System.out.println("Данный запрос отсутствует");
+			System.out.println("Р”Р°РЅРЅС‹Р№ Р·Р°РїСЂРѕСЃ РѕС‚СЃСѓС‚СЃС‚РІСѓРµС‚");
 		}		
 	}
 
